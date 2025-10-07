@@ -29,6 +29,10 @@ import com.example.urbanize.ui.screen.DoencasScreen
 import com.example.urbanize.ui.screen.MedicacaoScreen
 import com.example.urbanize.ui.screen.BatePapoScreen
 import com.example.urbanize.ui.theme.UrbanizeTheme
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.example.urbanize.ui.screen.CadastroAnimalScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -46,53 +50,55 @@ data class BottomNavItem(
     val label: String,
     val icon: ImageVector
 )
-
 @Composable
 fun HomeScreen() {
-
-    val items = listOf(
-        BottomNavItem("Animais", Icons.Filled.Pets),
-        BottomNavItem("Doenças", Icons.Filled.MedicalInformation),
-        BottomNavItem("Medicação", Icons.Filled.Medication),
-        BottomNavItem("Bate-Papo", Icons.Filled.Chat)
-    )
-
-    var selectedItemIndex by rememberSaveable {
-        mutableStateOf(0)
-    }
+    val navController = rememberNavController()
 
     Scaffold(
         bottomBar = {
             NavigationBar {
+                val items = listOf(
+                    BottomNavItem("Animais", Icons.Filled.Pets),
+                    BottomNavItem("Doenças", Icons.Filled.MedicalInformation),
+                    BottomNavItem("Medicação", Icons.Filled.Medication),
+                    BottomNavItem("Bate-Papo", Icons.Filled.Chat)
+                )
+
+                var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
 
                 items.forEachIndexed { index, item ->
                     NavigationBarItem(
                         selected = selectedItemIndex == index,
                         onClick = {
                             selectedItemIndex = index
-
+                            when (index) {
+                                0 -> navController.navigate("animais")
+                                1 -> navController.navigate("doencas")
+                                2 -> navController.navigate("medicacao")
+                                3 -> navController.navigate("batepapo")
+                            }
                         },
                         label = { Text(text = item.label) },
                         icon = {
-                            Icon(
-                                imageVector = item.icon,
-                                contentDescription = item.label
-                            )
+                            Icon(imageVector = item.icon, contentDescription = item.label)
                         }
                     )
                 }
             }
         }
     ) { paddingValues ->
-        Box(
+        NavHost(
+            navController = navController,
+            startDestination = "animais",
             modifier = Modifier.padding(paddingValues)
         ) {
-            when (selectedItemIndex) {
-                0 -> AnimalsScreen()
-                1 -> DoencasScreen()
-                2 -> MedicacaoScreen()
-                3 -> BatePapoScreen()
-            }
+            composable("animais") { AnimalsScreen(navController) }
+            composable("doencas") { DoencasScreen() }
+            composable("medicacao") { MedicacaoScreen() }
+            composable("batepapo") { BatePapoScreen() }
+
+            // Nova rota para o cadastro
+            composable("cadastroAnimal") { CadastroAnimalScreen(navController) }
         }
     }
 }
