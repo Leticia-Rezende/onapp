@@ -33,6 +33,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.urbanize.ui.screen.CadastroAnimalScreen
+import com.example.urbanize.ui.screen.ConsultarAnimalScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -97,8 +98,9 @@ fun HomeScreen() {
             composable("medicacao") { MedicacaoScreen() }
             composable("batepapo") { BatePapoScreen() }
 
-            // Nova rota para o cadastro
+            // Nova rota para os cards
             composable("cadastroAnimal") { CadastroAnimalScreen(navController) }
+            composable("consultarAnimal") { ConsultarAnimalScreen(navController) }
         }
     }
 }
