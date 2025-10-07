@@ -2,7 +2,6 @@ package com.example.urbanize.ui.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,11 +18,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddAlert
 import androidx.compose.material.icons.filled.AddToQueue
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Assessment
+import androidx.compose.material.icons.filled.MedicalInformation
 import androidx.compose.material.icons.filled.Pets
-import androidx.compose.material.icons.filled.PostAdd
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Vaccines
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -52,7 +49,7 @@ fun DoencasScreen() {
         DoencaActionItem("Consultar", Icons.Default.Search),
         DoencaActionItem("Alertas", Icons.Default.AddAlert),
 
-    )
+        )
 
     Column(
         modifier = Modifier
@@ -62,7 +59,7 @@ fun DoencasScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-
+        DoencasScreenTopBar(backgroundColor = Color(0xffffffff))
         Spacer(modifier = Modifier.height(32.dp))
 
         // 2. Grid com os Cards
@@ -71,16 +68,56 @@ fun DoencasScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp), // Espaço vertical entre os cards
             horizontalArrangement = Arrangement.spacedBy(16.dp) // Espaço horizontal
         ) {
+            items(actionItems.size) { index ->
+                val item = actionItems[index]
+                ActionCardDoencas(
+                    item = item,
+                    backgroundColor = Color(0xffffffff), // Usando o verde mais escuro dos seus cards originais
+                    onClick = {
+                        // TODO: Lógica de navegação para a tela de "Cadastrar", "Consultar", etc.
+                        println("Clicou em ${item.label}")
+                    }
+                )
 
+            }
         }
     }
 }
-
+@Composable
+fun ActionCardDoencas(item: DoencaActionItem, backgroundColor: Color, onClick: () -> Unit) {
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = backgroundColor),
+            modifier = Modifier
+                .aspectRatio(1f) // Garante que o card seja um quadrado
+                .clickable(onClick = onClick)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = item.icon,
+                    contentDescription = item.label,
+                    modifier = Modifier.size(50.dp),
+                    tint = Color.Black
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = item.label,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black
+                )
+            }
+        }
+}
 @Composable
 fun DoencasScreenTopBar(backgroundColor: Color) {
     Surface(
         color = backgroundColor,
-        shape = RoundedCornerShape(50), // Cantos bem arredondados
+        shape = RoundedCornerShape(50),
         modifier = Modifier.fillMaxWidth(),
         shadowElevation = 4.dp
     ) {
@@ -88,59 +125,19 @@ fun DoencasScreenTopBar(backgroundColor: Color) {
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { /* TODO: Ação de voltar */ }) {
+            IconButton(onClick = {}) {
                 Icon(Icons.Default.ArrowBack, contentDescription = "Voltar", tint = Color.Black)
             }
             Text(
-                text = "Animais",
+                text = "Doenças",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier.weight(1f) // Ocupa o espaço restante
+                modifier = Modifier.weight(1f)
             )
-            // Nota: O ícone de boi/vaca não está no pacote padrão.
-            // Usei 'Pets' como substituto. Você pode usar um ícone personalizado.
-            Icon(Icons.Default.Pets, contentDescription = "Ícone de animal", tint = Color.Black)
-        }
-    }
-}
-
-@Composable
-fun ActionCard(item: DoencaActionItem, backgroundColor: Color, onClick: () -> Unit) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = backgroundColor),
-        modifier = Modifier
-            .aspectRatio(1f) // Garante que o card seja um quadrado
-            .clickable(onClick = onClick)
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                imageVector = item.icon,
-                contentDescription = item.label,
-                modifier = Modifier.size(50.dp),
-                tint = Color.Black
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = item.label,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.Black
-            )
+            Icon(Icons.Default.MedicalInformation, contentDescription = "Ícone de animal", tint = Color.Black)
         }
     }
 }
 
 
-
-@Composable
-fun DoencasScreen(name: String) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Tela de $name")
-    }
-}
