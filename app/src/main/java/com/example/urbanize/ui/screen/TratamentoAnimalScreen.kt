@@ -14,7 +14,7 @@ fun TratamentoAnimalScreen(navController: NavController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(text = "Tela de Relatório de Animal", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "Tela de Tratamento de Animal", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = { navController.popBackStack() }) {

@@ -34,6 +34,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.urbanize.ui.screen.CadastroAnimalScreen
 import com.example.urbanize.ui.screen.ConsultarAnimalScreen
+import com.example.urbanize.ui.screen.InserirDoencaScreen
 import com.example.urbanize.ui.screen.RelatorioAnimalScreen
 import com.example.urbanize.ui.screen.TratamentoAnimalScreen
 
@@ -96,7 +97,7 @@ fun HomeScreen() {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable("animais") { AnimalsScreen(navController) }
-            composable("doencas") { DoencasScreen() }
+            composable("doencas") { DoencasScreen(navController) }
             composable("medicacao") { MedicacaoScreen() }
             composable("batepapo") { BatePapoScreen() }
 
@@ -105,6 +106,8 @@ fun HomeScreen() {
             composable("consultarAnimal") { ConsultarAnimalScreen(navController) }
             composable("relatorioAnimal") { RelatorioAnimalScreen(navController) }
             composable("tratamentoAnimal") { TratamentoAnimalScreen(navController) }
+
+            composable("inserirDoenca") { InserirDoencaScreen((navController)) }
         }
     }
 }

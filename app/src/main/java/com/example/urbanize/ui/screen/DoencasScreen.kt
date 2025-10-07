@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 data class DoencaActionItem(
@@ -42,7 +43,7 @@ data class DoencaActionItem(
     val icon: ImageVector
 )
 @Composable
-fun DoencasScreen() {
+fun DoencasScreen(navController: NavController) {
     // Lista de ações para os cards
     val actionItems = listOf(
         DoencaActionItem("Inserir", Icons.Default.AddToQueue),
@@ -75,6 +76,9 @@ fun DoencasScreen() {
                     backgroundColor = Color(0xffffffff), // Usando o verde mais escuro dos seus cards originais
                     onClick = {
                         // TODO: Lógica de navegação para a tela de "Cadastrar", "Consultar", etc.
+                        when(item.label) {
+                            "Inserir" -> navController.navigate("inserirDoenca")
+                        }
                         println("Clicou em ${item.label}")
                     }
                 )
