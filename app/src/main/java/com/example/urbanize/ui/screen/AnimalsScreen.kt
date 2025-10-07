@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 data class AnimalActionItem(
     val label: String,
@@ -23,8 +24,7 @@ data class AnimalActionItem(
 )
 
 @Composable
-fun AnimalsScreen() {
-    // Lista de ações para os cards
+fun AnimalsScreen(navController: NavController) {
     val actionItems = listOf(
         AnimalActionItem("Cadastrar", Icons.Default.PostAdd),
         AnimalActionItem("Consultar", Icons.Default.Search),
@@ -35,34 +35,35 @@ fun AnimalsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         AnimalScreenTopBar(backgroundColor = Color(0xffffffff))
         Spacer(modifier = Modifier.height(32.dp))
 
-        // 2. Grid com os Cards
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2), // Define que teremos 2 colunas
-            verticalArrangement = Arrangement.spacedBy(16.dp), // Espaço vertical entre os cards
-            horizontalArrangement = Arrangement.spacedBy(16.dp) // Espaço horizontal
+            columns = GridCells.Fixed(2),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(actionItems.size) { index ->
                 val item = actionItems[index]
                 ActionCardAnimals(
                     item = item,
-                    backgroundColor = Color(0xffffffff), // Usando o verde mais escuro dos seus cards originais
+                    backgroundColor = Color(0xffffffff),
                     onClick = {
-                        // TODO: Lógica de navegação para a tela de "Cadastrar", "Consultar", etc.
-                        println("Clicou em ${item.label}")
+                        when (item.label) {
+                            "Cadastrar" -> navController.navigate("cadastroAnimal")
+                            // você pode adicionar outras rotas aqui se quiser
+                            else -> println("Clicou em ${item.label}")
+                        }
                     }
                 )
             }
         }
     }
 }
+
 
 @Composable
 fun ActionCardAnimals(item: AnimalActionItem, backgroundColor: Color, onClick: () -> Unit) {
@@ -121,8 +122,6 @@ fun AnimalScreenTopBar(backgroundColor: Color) {
         }
     }
 }
-
-// teste git
 
 
 
