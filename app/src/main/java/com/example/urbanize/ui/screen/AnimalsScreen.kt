@@ -54,9 +54,11 @@ fun AnimalsScreen(navController: NavController) {
                     onClick = {
                         when (item.label) {
                             "Cadastrar" -> navController.navigate("cadastroAnimal")
+
                             "Consultar" -> navController.navigate("consultarAnimal")
                             "Relatório" -> navController.navigate("relatorioAnimal")
                             "Tratamento" -> navController.navigate("tratamentoAnimal")
+
                             // você pode adicionar outras rotas aqui se quiser
                             else -> println("Clicou em ${item.label}")
                         }

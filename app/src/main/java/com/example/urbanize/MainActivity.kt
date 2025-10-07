@@ -33,8 +33,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.urbanize.ui.screen.CadastroAnimalScreen
+<<<<<<< HEAD
 import com.example.urbanize.ui.screen.ConsultarAnimalScreen
 import com.example.urbanize.ui.screen.RelatorioAnimalScreen
+=======
+>>>>>>> featureRegister
 
 
 class MainActivity : ComponentActivity() {
@@ -99,10 +102,15 @@ fun HomeScreen() {
             composable("medicacao") { MedicacaoScreen() }
             composable("batepapo") { BatePapoScreen() }
 
+<<<<<<< HEAD
             // Nova rota para os cards
             composable("cadastroAnimal") { CadastroAnimalScreen(navController) }
             composable("consultarAnimal") { ConsultarAnimalScreen(navController) }
             composable("relatorioAnimal") { RelatorioAnimalScreen(navController) }
+=======
+            // Nova rota para o cadastro
+            composable("cadastroAnimal") { CadastroAnimalScreen(navController) }
+>>>>>>> featureRegister
         }
     }
 }
