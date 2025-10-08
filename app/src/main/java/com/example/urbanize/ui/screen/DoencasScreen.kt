@@ -74,7 +74,7 @@ fun DoencasScreen(navController: NavController) {
                 val item = actionItems[index]
                 ActionCardDoencas(
                     item = item,
-                    (Color(0xFFBDBDBD)), //Cor de fundo dos Cards
+                    (Color(0xffffffff)), //Cor de fundo dos Cards
                     onClick = {
                         // TODO: Lógica de navegação para a tela de "Cadastrar", "Consultar", etc.
                         when(item.label) {
@@ -82,7 +82,6 @@ fun DoencasScreen(navController: NavController) {
                             "Consultar" -> navController.navigate("consultarDoenca")
                             "Alertas" -> navController.navigate("alertasDoenca")
                         }
-                        println("Clicou em ${item.label}")
                     }
                 )
 

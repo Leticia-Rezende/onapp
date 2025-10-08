@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 data class MedicacaoActionItem(
     val label: String,
@@ -45,7 +46,7 @@ data class MedicacaoActionItem(
 )
 
 @Composable
-fun MedicacaoScreen() {
+fun MedicacaoScreen(navController: NavController) {
     // Lista de ações para os cards
     val actionItems = listOf(
         MedicacaoActionItem("Reposição", Icons.Default.AddBox),
@@ -75,10 +76,14 @@ fun MedicacaoScreen() {
                 val item = actionItems[index]
                 ActionCardMedicacao(
                     item = item,
-                    (Color(0xff9b7a37)), //Cor de fundo dos Cards
+                    (Color(0xffffffff)), //Cor de fundo dos Cards
                     onClick = {
-                        // TODO: Lógica de navegação para a tela de "Cadastrar", "Consultar", etc.
-                        println("Clicou em ${item.label}")
+                        when (item.label) {
+                            "Reposicao" -> navController.navigate("reposicaoMedicacao")
+                            "Estoque" -> navController.navigate("estoqueMedicacao")
+                            "Alertas" -> navController.navigate("alertasMedicacao")
+                            "Relatório" -> navController.navigate("relatorioMedicacao")
+                        }
                     }
                 )
             }

@@ -6,12 +6,13 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CadastroAnimalScreen(navController: NavController) {
+fun CadastroAnimalScreen(navController: NavController, onSaveClicked: () -> Unit) {
     var animal by remember { mutableStateOf("") }
     var peso by remember { mutableStateOf("") }
     var idade by remember { mutableStateOf("") }
@@ -91,11 +92,16 @@ fun CadastroAnimalScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(
-                onClick = { /* TODO: ação de salvar */ },
+                onClick = { onSaveClicked()
+
+                    /* TODO: ação de salvar */ },
+
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF8B4513)),
                 shape = MaterialTheme.shapes.medium
+
             ) {
                 Text(text = "Cadastrar")
             }

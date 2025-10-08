@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
@@ -33,7 +32,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.urbanize.ui.screen.AlertasDoencasScreen
+
 import com.example.urbanize.ui.screen.CadastroAnimalScreen
+import com.example.urbanize.ui.screen.CadastroSalvoAnimalScreen
 import com.example.urbanize.ui.screen.ConsultarAnimalScreen
 import com.example.urbanize.ui.screen.InserirDoencaScreen
 import com.example.urbanize.ui.screen.RelatorioAnimalScreen
@@ -58,6 +59,7 @@ data class BottomNavItem(
 @Composable
 fun HomeScreen() {
     val navController = rememberNavController()
+
 
     Scaffold(
         bottomBar = {
@@ -99,22 +101,46 @@ fun HomeScreen() {
         ) {
             composable("animais") { AnimalsScreen(navController) }
             composable("doencas") { DoencasScreen(navController) }
-            composable("medicacao") { MedicacaoScreen() }
+            composable("medicacao") { MedicacaoScreen(navController) }
             composable("batepapo") { BatePapoScreen() }
 
-            // Nova rota para os cards
-            composable("cadastroAnimal") { CadastroAnimalScreen(navController) }
+            // Nova rota para os cards Animal
+            composable("cadastroAnimal") {
+                CadastroAnimalScreen(
+                    navController = navController,
+                    onSaveClicked = {
+                        navController.navigate("cadastroSucesso")
+                    }
+                )
+            }
             composable("consultarAnimal") { ConsultarAnimalScreen(navController) }
             composable("relatorioAnimal") { RelatorioAnimalScreen(navController) }
             composable("tratamentoAnimal") { TratamentoAnimalScreen(navController) }
 
+            // Rota de Salvamento: Animal, Doença
+            composable(route = "cadastroSucesso") {
+                CadastroSalvoAnimalScreen(
+                    onBackToHome = {
+                        navController.popBackStack(route = "animais", inclusive = false)
+                    }
+                )
+            }
+
+            // Nova rota para os cards Doenças
             composable("inserirDoenca") { InserirDoencaScreen((navController)) }
+
+
             composable("consultarDoenca") { InserirDoencaScreen((navController)) }
             composable("alertasDoenca") { AlertasDoencasScreen(navController) }
+
+            // Nova rota para os cards Medicação
+
 
         }
     }
 }
+
+
 
 
 
