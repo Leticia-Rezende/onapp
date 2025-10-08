@@ -1,5 +1,6 @@
 package com.example.urbanize.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -56,7 +57,7 @@ fun MedicacaoScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-
+            .background(Color(0xffd5d69d)) // Cor de Fundo
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -74,7 +75,7 @@ fun MedicacaoScreen() {
                 val item = actionItems[index]
                 ActionCardMedicacao(
                     item = item,
-                    backgroundColor = Color(0xffffffff),
+                    (Color(0xff9b7a37)), //Cor de fundo dos Cards
                     onClick = {
                         // TODO: Lógica de navegação para a tela de "Cadastrar", "Consultar", etc.
                         println("Clicou em ${item.label}")

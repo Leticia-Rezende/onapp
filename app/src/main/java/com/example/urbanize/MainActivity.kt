@@ -32,6 +32,7 @@ import com.example.urbanize.ui.theme.UrbanizeTheme
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.urbanize.ui.screen.AlertasDoencasScreen
 import com.example.urbanize.ui.screen.CadastroAnimalScreen
 import com.example.urbanize.ui.screen.ConsultarAnimalScreen
 import com.example.urbanize.ui.screen.InserirDoencaScreen
@@ -108,6 +109,9 @@ fun HomeScreen() {
             composable("tratamentoAnimal") { TratamentoAnimalScreen(navController) }
 
             composable("inserirDoenca") { InserirDoencaScreen((navController)) }
+            composable("consultarDoenca") { InserirDoencaScreen((navController)) }
+            composable("alertasDoenca") { AlertasDoencasScreen(navController) }
+
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.urbanize.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -35,10 +36,11 @@ fun AnimalsScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color(0xffd5d69d)) // Cor de Fundo
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        AnimalScreenTopBar(backgroundColor = Color(0xffffffff))
+        AnimalScreenTopBar(backgroundColor = Color.White)
         Spacer(modifier = Modifier.height(32.dp))
 
         LazyVerticalGrid(
@@ -50,15 +52,13 @@ fun AnimalsScreen(navController: NavController) {
                 val item = actionItems[index]
                 ActionCardAnimals(
                     item = item,
-                    backgroundColor = Color(0xffffffff),
+                    (Color(0xffffffff)), //Cor de fundo dos Cards
                     onClick = {
                         when (item.label) {
                             "Cadastrar" -> navController.navigate("cadastroAnimal")
                             "Consultar" -> navController.navigate("consultarAnimal")
                             "Relatório" -> navController.navigate("relatorioAnimal")
                             "Tratamento" -> navController.navigate("tratamentoAnimal")
-                            // você pode adicionar outras rotas aqui se quiser
-                            else -> println("Clicou em ${item.label}")
                         }
                     }
                 )
@@ -68,8 +68,10 @@ fun AnimalsScreen(navController: NavController) {
 }
 
 
+
 @Composable
 fun ActionCardAnimals(item: AnimalActionItem, backgroundColor: Color, onClick: () -> Unit) {
+
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor),
