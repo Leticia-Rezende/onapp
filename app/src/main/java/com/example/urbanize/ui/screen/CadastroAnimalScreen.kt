@@ -93,8 +93,7 @@ fun CadastroAnimalScreen(navController: NavController, onSaveClicked: () -> Unit
 
             Button(
                 onClick = { onSaveClicked()
-
-                    /* TODO: ação de salvar */ },
+                          },
 
                 modifier = Modifier
                     .fillMaxWidth()
