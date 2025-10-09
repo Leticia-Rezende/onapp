@@ -62,7 +62,7 @@ fun CadastroSalvoAnimalScreen(
 
             // Mensagem de sucesso
             Text(
-                text = "Animal Cadastrado com Sucesso!",
+                text = "Cadastrado com Sucesso!",
                 style = MaterialTheme.typography.headlineMedium.copy(fontSize = 24.sp),
                 color = Color.Black
             )

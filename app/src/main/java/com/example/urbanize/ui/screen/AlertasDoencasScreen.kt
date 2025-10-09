@@ -1,5 +1,7 @@
 package com.example.urbanize.ui.screen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -97,6 +99,7 @@ fun AlertaCard(alerta: Alerta) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun formatarDataHora(): String {
     val agora = LocalDateTime.now()
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")

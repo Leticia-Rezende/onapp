@@ -1,6 +1,5 @@
 package com.example.urbanize
 
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,23 +22,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.urbanize.ui.screen.AnimalsScreen
-import com.example.urbanize.ui.screen.DoencasScreen
-import com.example.urbanize.ui.screen.MedicacaoScreen
-import com.example.urbanize.ui.screen.BatePapoScreen
-import com.example.urbanize.ui.theme.UrbanizeTheme
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.urbanize.ui.screen.AlertasDoencasScreen
-
-import com.example.urbanize.ui.screen.CadastroAnimalScreen
-import com.example.urbanize.ui.screen.CadastroSalvoAnimalScreen
-import com.example.urbanize.ui.screen.ConsultarAnimalScreen
-import com.example.urbanize.ui.screen.InserirDoencaScreen
-import com.example.urbanize.ui.screen.RelatorioAnimalScreen
-import com.example.urbanize.ui.screen.TratamentoAnimalScreen
-
+import com.example.urbanize.ui.screen.*
+import com.example.urbanize.ui.theme.UrbanizeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,18 +35,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             UrbanizeTheme {
                 HomeScreen()
-                }
             }
         }
     }
+}
+
 data class BottomNavItem(
     val label: String,
     val icon: ImageVector
 )
+
 @Composable
 fun HomeScreen() {
     val navController = rememberNavController()
-
 
     Scaffold(
         bottomBar = {
@@ -86,9 +74,7 @@ fun HomeScreen() {
                             }
                         },
                         label = { Text(text = item.label) },
-                        icon = {
-                            Icon(imageVector = item.icon, contentDescription = item.label)
-                        }
+                        icon = { Icon(imageVector = item.icon, contentDescription = item.label) }
                     )
                 }
             }
@@ -99,26 +85,25 @@ fun HomeScreen() {
             startDestination = "animais",
             modifier = Modifier.padding(paddingValues)
         ) {
+            // -------------------------------
+            // 🐮 Rotas da aba Animais
+            // -------------------------------
             composable("animais") { AnimalsScreen(navController) }
-            composable("doencas") { DoencasScreen(navController) }
-            composable("medicacao") { MedicacaoScreen(navController) }
-            composable("batepapo") { BatePapoScreen() }
 
-            // Nova rota para os cards Animal
             composable("cadastroAnimal") {
                 CadastroAnimalScreen(
                     navController = navController,
                     onSaveClicked = {
-                        navController.navigate("cadastroSucesso")
+                        navController.navigate("cadastroSucessoAnimal")
                     }
                 )
             }
+
             composable("consultarAnimal") { ConsultarAnimalScreen(navController) }
             composable("relatorioAnimal") { RelatorioAnimalScreen(navController) }
             composable("tratamentoAnimal") { TratamentoAnimalScreen(navController) }
 
-            // Rota de Salvamento: Animal, Doença
-            composable(route = "cadastroSucesso") {
+            composable("cadastroSucessoAnimal") {
                 CadastroSalvoAnimalScreen(
                     onBackToHome = {
                         navController.popBackStack(route = "animais", inclusive = false)
@@ -126,23 +111,40 @@ fun HomeScreen() {
                 )
             }
 
-            // Nova rota para os cards Doenças
-            composable("inserirDoenca") { InserirDoencaScreen((navController)) }
+            // -------------------------------
+            // 💉 Rotas da aba Doenças
+            // -------------------------------
+            composable("doencas") { DoencasScreen(navController) }
+
+            composable(route = "inserirDoenca") {
+                InserirDoencaScreen(
+                    navController = navController,
+                    onSaveClicked = {
+                        navController.navigate("cadastroSucessoDoenca")
+                    }
+                )
+            }
 
 
-            composable("consultarDoenca") { InserirDoencaScreen((navController)) }
             composable("alertasDoenca") { AlertasDoencasScreen(navController) }
 
-            // Nova rota para os cards Medicação
+            composable("cadastroSucessoDoenca") {
+                CadastroSalvoAnimalScreen(
+                    onBackToHome = {
+                        navController.popBackStack(route = "doencas", inclusive = false)
+                    }
+                )
+            }
 
+            // -------------------------------
+            // 💊 Rotas da aba Medicação
+            // -------------------------------
+            composable("medicacao") { MedicacaoScreen(navController) }
 
+            // -------------------------------
+            // 💬 Rotas da aba Bate-Papo
+            // -------------------------------
+            composable("batepapo") { BatePapoScreen() }
         }
     }
 }
-
-
-
-
-
-
-

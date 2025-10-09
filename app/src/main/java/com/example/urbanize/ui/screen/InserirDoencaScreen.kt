@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InserirDoencaScreen(navController: NavController) {
+fun InserirDoencaScreen(navController: NavController , onSaveClicked: () -> Unit) {
     var nome by remember { mutableStateOf("") }
     var sintomas by remember { mutableStateOf("") }
     var tratamento by remember { mutableStateOf("") }
@@ -91,7 +91,8 @@ fun InserirDoencaScreen(navController: NavController) {
             Button(
                 onClick = {
                     // TODO: salvar os dados (ex: Room, ViewModel, etc.)
-                    navController.popBackStack()
+                    // navController.popBackStack()
+                    onSaveClicked()
                 },
                 modifier = Modifier
                     .fillMaxWidth()
