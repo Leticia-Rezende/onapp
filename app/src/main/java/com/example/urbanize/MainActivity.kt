@@ -15,16 +15,13 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.urbanize.ui.screen.*
 import com.example.urbanize.ui.theme.UrbanizeTheme
 
@@ -85,11 +82,11 @@ fun HomeScreen() {
             startDestination = "animais",
             modifier = Modifier.padding(paddingValues)
         ) {
+
             // -------------------------------
             // 🐮 Rotas da aba Animais
             // -------------------------------
             composable("animais") { AnimalsScreen(navController) }
-
             composable("cadastroAnimal") {
                 CadastroAnimalScreen(
                     navController = navController,
@@ -98,7 +95,6 @@ fun HomeScreen() {
                     }
                 )
             }
-
             composable("consultarAnimal") { ConsultarAnimalScreen(navController) }
             composable("relatorioAnimal") { RelatorioAnimalScreen(navController) }
             composable("tratamentoAnimal") { TratamentoAnimalScreen(navController) }
@@ -111,12 +107,17 @@ fun HomeScreen() {
                 )
             }
 
+            // 🆕 NOVA ROTA – detalhes do animal selecionado
+            composable("detalheAnimal/{nomeAnimal}") { backStackEntry ->
+                val nomeAnimal = backStackEntry.arguments?.getString("nomeAnimal")
+                DetalheAnimalScreen(nomeAnimal, navController)
+            }
+
             // -------------------------------
             // 💉 Rotas da aba Doenças
             // -------------------------------
             composable("doencas") { DoencasScreen(navController) }
-
-            composable(route = "inserirDoenca") {
+            composable("inserirDoenca") {
                 InserirDoencaScreen(
                     navController = navController,
                     onSaveClicked = {
@@ -124,10 +125,7 @@ fun HomeScreen() {
                     }
                 )
             }
-
-
             composable("alertasDoenca") { AlertasDoencasScreen(navController) }
-
             composable("cadastroSucessoDoenca") {
                 CadastroSalvoAnimalScreen(
                     onBackToHome = {
